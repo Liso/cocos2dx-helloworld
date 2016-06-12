@@ -2,7 +2,9 @@ var g_groundHeight = 57;
 var g_ceilHeight = 257;
 var g_runnerStartX = 500;
 
-var speed = 10;
+var speed = 150;
+
+var creepRate = 2;
 
 if(typeof TagOfLayer == "undefined") {
     var TagOfLayer = {};
@@ -16,8 +18,7 @@ if(typeof TagOfLayer == "undefined") {
 if(typeof SpriteTag == "undefined") {
     var SpriteTag = {};
     SpriteTag.runner = 0;
-    SpriteTag.coin = 1;
-    SpriteTag.rock = 2;
+    SpriteTag.creep = 1;
 };
 
 // define enum for runner status

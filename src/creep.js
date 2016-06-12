@@ -32,11 +32,28 @@ var Creep = cc.Class.extend({
         var contentSize = this.sprite.getContentSize();
         // init body
         this.body = new cp.Body(1, cp.momentForBox(1, contentSize.width, contentSize.height));
-        this.body.p = cc.p(g_runnerStartX, initialY + contentSize.height / 2);
+        
+        var y;
+        var x;
+        if (team == Team.sentinel) {
+            y = initialY + contentSize.height / 2;
+        } else {
+            y = initialY - contentSize.height / 2;
+        }
+        if (side == RunnerSide.left) {
+            x = g_runnerStartX - contentSize.width;
+        } else {
+            x = g_runnerStartX + contentSize.width;
+        }
+        this.body.p = cc.p(x, y);
         this.setInitImpulse();//run speed
         this.space.addBody(this.body);
         //init shape
         this.shape = new cp.BoxShape(this.body, contentSize.width - 14, contentSize.height);
+        this.shape.setCollisionType(SpriteTag.creep);
+        //Sensors only call collision callbacks, and never generate real collisions
+        // this.shape.setSensor(true);
+
         this.space.addShape(this.shape);
 
         this.sprite.setBody(this.body);
@@ -97,5 +114,16 @@ var Creep = cc.Class.extend({
             this.body.applyImpulse(cp.v(-speed, -speed), cp.v(0, 0));
             this.stat = RunnerStat.goDown;
         }
+    },
+
+    removeFromParent:function () {
+        this.space.removeShape(this.shape);
+        this.shape = null;
+        this.sprite.removeFromParent();
+        this.sprite = null;
+    },
+
+    getShape:function () {
+        return this.shape;
     }
 });

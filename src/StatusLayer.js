@@ -13,8 +13,8 @@ var StatusLayer = cc.Layer.extend({
 
         var winsize = cc.director.getWinSize();
 
-        this.labelCoin = new cc.LabelTTF("Coins:0", "Helvetica", 20);
-        this.labelCoin.setColor(cc.color(0,0,0));//black color
+        this.labelCoin = new cc.LabelTTF("Creeps:0", "Helvetica", 20);
+        // this.labelCoin.setColor(cc.color(0,0,0));//black color
         this.labelCoin.setPosition(cc.p(70, winsize.height - 20));
         this.addChild(this.labelCoin);
 
@@ -25,7 +25,7 @@ var StatusLayer = cc.Layer.extend({
 
     addCoin:function (num) {
         this.coins += num;
-        this.labelCoin.setString("Coins:" + this.coins);
+        this.labelCoin.setString("Creeps:" + this.coins);
     },
 
     updateMeter:function (px) {

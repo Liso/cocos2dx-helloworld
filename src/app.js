@@ -22,6 +22,9 @@ var HelloWorldLayer = cc.Layer.extend({
 
         //3. calculate the center point
         var centerpos = cc.p(size.width / 2, size.height / 2);
+        g_groundHeight = 57;
+        g_ceilHeight = size.height - g_groundHeight;
+        g_runnerStartX = size.width / 2;
 
         //4. create a background image and set it's position at the center of the screen
         var spritebg = new cc.Sprite(res.helloBG_png);

@@ -18,10 +18,10 @@ var AnimationLayer = cc.Layer.extend({
 
         // create sprite sheet
         cc.spriteFrameCache.addSpriteFrames(res.runner_plist);
-        this.initSentinel();
-        this.initScourge();
 
         this.scheduleUpdate();
+        
+        this.schedule(this.createCreeps, creepRate);
     },
 
     initSentinel:function() {
@@ -48,6 +48,23 @@ var AnimationLayer = cc.Layer.extend({
         this._super();
     },
 
+    removeObjectByShape:function (shape) {
+        for (var i = 0; i < this.sentinel.length; i++) {
+            if (this.sentinel[i].getShape() == shape) {
+                this.sentinel[i].removeFromParent();
+                this.sentinel.splice(i, 1);
+                break;
+            }
+        }
+        for (var i = 0; i < this.scourge.length; i++) {
+            if (this.scourge[i].getShape() == shape) {
+                this.scourge[i].removeFromParent();
+                this.scourge.splice(i, 1);
+                break;
+            }
+        }
+    },
+
     update:function (dt) {
         for (var key in this.sentinel) {
             var creep = this.sentinel[key];
@@ -62,6 +79,11 @@ var AnimationLayer = cc.Layer.extend({
                 creep.turn();
             }
         }
+    },
+
+    createCreeps:function () {
+        this.initSentinel();
+        this.initScourge();
     }
 
 });
